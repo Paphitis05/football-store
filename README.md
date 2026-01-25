@@ -18,10 +18,8 @@ This is a simple web application for managing a football store database, built w
 ### 2. Backend Setup
 
 1.  **Navigate to Project Directory:** Open your terminal or command prompt and navigate to the project's root directory:
-    ```bash
-    cd D:\Year2\DataBases\PartC
-    ```
-2.  **Install Python Dependencies:** Install the required Python packages using pip:
+   
+3.  **Install Python Dependencies:** Install the required Python packages using pip:
     ```bash
     pip install -r requirements.txt
     ```
