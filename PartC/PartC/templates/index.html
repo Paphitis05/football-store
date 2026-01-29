@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">Management</div>
+      <a class="active" href="/">Home</a>
+      <a href="/data_entry">Data Entry</a>
+      <a href="/queries">Queries</a>
+    </div>
+
+    <p>
+      The user can enter customers, products, and orders, as well as perform data searches.
+    </p>
+
+    <div class="grid">
+      <div class="card half">
+        <h2>Insert Data</h2>
+        <p>Forms for entering Customers / Products / Orders.</p>
+        <a class="btn primary" href="/data_entry">Go to Data Entry</a>
+      </div>
+
+      <div class="card half">
+        <h2>User Queries</h2>
+        <p>Searches & display results in a table.</p>
+        <a class="btn primary" href="/queries">Go to Queries</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
