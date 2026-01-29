@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Queries</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="brand">Management</div>
+      <a href="/">Home</a>
+      <a href="/data_entry">Data Entry</a>
+      <a class="active" href="/queries">Queries</a>
+    </div>
+
+    <div class="grid">
+
+      <!-- Query 1 -->
+      <div class="card half">
+        <h2>Q1: Find Customer Details</h2>
+        <form action="/query1" method="post" class="form">
+          <label for="customer_id_1">Customer ID or Name:</label>
+          <input type="text" id="customer_id_1" name="customer_id">
+          <button class="btn primary" type="submit">Execute Q1</button>
+        </form>
+      </div>
+
+      <!-- Query 2 -->
+      <div class="card half">
+        <h2>Q2: Find Team Players</h2>
+        <form action="/query2" method="post" class="form">
+          <label for="team_id_2">Team ID or Name:</label>
+          <input type="text" id="team_id_2" name="team_id">
+          <button class="btn primary" type="submit">Execute Q2</button>
+        </form>
+      </div>
+
+      <!-- Query 3 -->
+      <div class="card half">
+        <h2>Q3: Find Product Details</h2>
+        <form action="/query3" method="post" class="form">
+          <label for="product_id_3">Product ID or Name:</label>
+          <input type="text" id="product_id_3" name="product_id">
+          <button class="btn primary" type="submit">Execute Q3</button>
+        </form>
+      </div>
+
+      <!-- Query 4 -->
+      <div class="card half">
+        <h2>Q4: Items by Price Range</h2>
+        <p class="small">Show items with price between 3.00 and 15.00.</p>
+        <form action="/query4" method="get" class="form">
+          <button class="btn primary" type="submit">Execute Q4</button>
+        </form>
+      </div>
+
+      <!-- Query 5 -->
+      <div class="card half">
+        <h2>Q5: Customers by Location</h2>
+        <p class="small">Show customers in Starford or Liverpool.</p>
+        <form action="/query5" method="get" class="form">
+          <button class="btn primary" type="submit">Execute Q5</button>
+        </form>
+      </div>
+
+      <!-- Query 6 -->
+      <div class="card half">
+        <h2>Q6: Salesperson Average Sales</h2>
+        <form action="/query6" method="get" class="form">
+          <button class="btn primary" type="submit">Execute Q6</button>
+        </form>
+      </div>
+
+      <!-- Query 7 -->
+      <div class="card half">
+        <h2>Q7: Salesperson with Largest Order</h2>
+        <form action="/query7" method="get" class="form">
+          <button class="btn primary" type="submit">Execute Q7</button>
+        </form>
+      </div>
+    </div>
+
+    {% if query_result %}
+    <div class="card" style="margin-top: 30px;">
+        <h2>Query Result</h2>
+        <div class="tablewrap">
+            <table>
+                <thead>
+                    <tr>
+                        {% for key in query_result[0].keys() %}
+                            <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in query_result %}
+                    <tr>
+                        {% for value in row.values() %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+
+  </div>
+</body>
+</html>
