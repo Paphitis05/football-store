@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Items to Order</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <div class="brand">Management</div>
+            <a href="/">Home</a>
+            <a class="active" href="/data_entry">Data Entry</a>
+            <a href="/queries">Queries</a>
+        </div>
+
+        <div class="card">
+            <h2>Add Items to Order #{{ order.Order_ID }}</h2>
+            <p><strong>Order Code:</strong> {{ order.order_code }} | <strong>Customer:</strong> {{ order.Customer_Name }}</p>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 0;">
+
+            <h3>Items in this Order</h3>
+            {% if order_items %}
+                <div class="tablewrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Original Price</th>
+                                <th>Discount</th>
+                                <th>Discounted Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order_items %}
+                            <tr>
+                                <td>{{ item.name }}</td>
+                                <td>{{ "%.2f"|format(item.price) }}</td>
+                                <td>{{ "%d%%"|format(item.discount_percent * 100) }}</td>
+                                <td>{{ "%.2f"|format(item.discounted_price) }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ "%.2f"|format(item.subtotal) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" style="text-align:right; font-weight:bold;">Total Order Price:</td>
+                                <td style="font-weight:bold;">{{ "%.2f"|format(total_price) }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            {% else %}
+                <p>No items have been added to this order yet.</p>
+            {% endif %}
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 0;">
+
+            <h3>Add Item to Order</h3>
+            <form class="form" action="{{ url_for('add_item_to_order_action', order_id=order.Order_ID) }}" method="post">
+                <div class="row two">
+                    <div>
+                        <label for="item_id">Item:</label>
+                        <select name="item_id" id="item_id" required>
+                            {% for item in items %}
+                                <option value="{{ item.item_id }}">{{ item.name }} (Price: {{ "%.2f"|format(item.price) }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div>
+                        <label for="quantity">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn primary">Add Item</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
